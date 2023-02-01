@@ -1,0 +1,18 @@
+#
+# Server
+#
+SERVER_PORT: 9090
+#
+# Database
+#
+DB_HOST: 127.0.0.1
+DB_PORT: 5433
+DB_NAME: numbers
+DB_USER: unumbers
+DB_PASSWORD: cc402fd0
+DB_SSLMODE: disable
+#
+# Swagger
+#
+SWAGGER_USER: numbers
+SWAGGER_PASSWORD: d081da90622a

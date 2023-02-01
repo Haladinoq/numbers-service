@@ -1,0 +1,81 @@
+definitions:
+  model.NumbersRequest:
+    properties:
+      client:
+        type: string
+      number:
+        type: integer
+    type: object
+  model.NumbersResponse:
+    properties:
+      CreatedAt:
+        type: integer
+      UpdatedAt:
+        type: integer
+      client:
+        type: string
+      id:
+        type: integer
+      number:
+        type: integer
+    type: object
+info:
+  contact:
+    name: Numbers Service Support
+  description: This is a Numbers Service.
+  title: Numbers Service
+  version: "1.0"
+paths:
+  /v1/reservation:
+    get:
+      consumes:
+      - application/json
+      description: get reservation numbers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.NumbersResponse'
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized Request
+        "404":
+          description: Not Found
+      summary: get reservation numbers
+      tags:
+      - Reservation V1
+    post:
+      consumes:
+      - application/json
+      description: create numbers
+      parameters:
+      - description: The reservation data
+        in: body
+        name: numbers
+        required: true
+        schema:
+          $ref: '#/definitions/model.NumbersRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            type: string
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized Request
+        "404":
+          description: Not Found
+      summary: service for reservation numbers
+      tags:
+      - Reservation V1
+swagger: "2.0"
