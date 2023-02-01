@@ -1,8 +1,17 @@
-FROM golang:1.18-alpine
+# base go image
+FROM golang:1.18-alpine as builder
 
-RUN mkdir /app
+RUN mkdir /api
+RUN mkdir /config
 
-COPY createChargeService /app
-COPY /config/ ./config/
+COPY . /api
+COPY ../config /config
 
-CMD [ "/app/createChargeService","-config","config/config.yaml"]
+
+WORKDIR /api
+
+RUN CGO_ENABLED=0 go build -o numbersService ./cmd/numbers-service
+
+RUN chmod +x /api/numbersService
+
+CMD [ "/api/numbersService","-config","/config/config.yml"]

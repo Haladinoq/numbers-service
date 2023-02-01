@@ -8,10 +8,16 @@ dropdb:
 	docker exec -it postgres12 dropdb --username=unumbers numbers
 
 migrationup:
-	migrate -database "postgres://unumbers:cc402fd0@localhost:5433/numbers?sslmode=disable" -path "migrations" up
+	migrate -database "postgres://unumbers:cc402fd0@localhost:5432/numbers?sslmode=disable" -path "migrations" up
+
+migrationup1:
+	migrate -database "postgres://unumbers:cc402fd0@localhost:5432/numbers?sslmode=disable" -path "migrations" up 1
 
 migrationdown:
-	migrate -database "postgres://unumbers:cc402fd0@localhost:5433/numbers?sslmode=disable" -path "migrations" down
+	migrate -database "postgres://unumbers:cc402fd0@localhost:5432/numbers?sslmode=disable" -path "migrations" down
+
+migrationdown1:
+	migrate -database "postgres://unumbers:cc402fd0@localhost:5432/numbers?sslmode=disable" -path "migrations" down 1
 
 swagger:
 	swag init -g cmd/numbers-service/main.go
@@ -19,5 +25,12 @@ swagger:
 server:
 	 go run cmd/numbers-service/main.go -config="config/config.yml"
 
+compose:
+	docker-compose up --build
 
-.PHONY: postgres createdb dropdb migrationup migrationdown swagger server
+test:
+	go test -coverprofile=coverage ./pkg/...
+
+
+
+.PHONY: postgres createdb dropdb migrationup migrationup1 migrationdown migrationdown1 swagger server compose test

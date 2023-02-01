@@ -149,7 +149,7 @@ func TestNumbersAPIHandler_GetNumbers_ErrorService(t *testing.T) {
 	req := newRequest(http.MethodGet, "/v1/reservation", body)
 	r.ServeHTTP(w, req)
 
-	result := `[{"id":1,"client":"Client","number":1,"CreatedAt":-62135596800000,"UpdatedAt":-62135596800000}]`
+	result := `{"type":"numbers-service.application","reason":"error","message":"something happened while retrieving the one"}`
 
 	assert.Equal(t, http.StatusInternalServerError, w.Code)
 	assert.Equal(t, result, w.Body.String())
